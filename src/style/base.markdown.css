@@ -1,0 +1,150 @@
+@charset "UTF-8";
+.c-default-size {
+  width: 100%;
+  height: 99.7vh;
+  min-height: 300px;
+  min-width: 570px;
+}
+
+.c-default-size .c-tool-bar-area {
+  width: calc(100% - 2px);
+  height: 30px;
+  display: inline-flex;
+  justify-content: flex-start;
+  align-items: center;
+  background-color: #f9f9f9;
+  border-right: 1px solid #e1e4e8;
+  border-top: 1px solid #e1e4e8;
+  border-left: 1px solid #e1e4e8;
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+
+.c-default-size .c-tool-bar-area .c-tool-item {
+  padding: 0 3px;
+  color: #909090;
+  margin-right: 5px;
+  transition: all 500ms;
+}
+
+.c-default-size .c-tool-bar-area .c-tool-item .icon {
+  font-size: 18px;
+}
+
+.c-default-size .c-tool-bar-area .c-tool-item:hover {
+  color: #333;
+  cursor: pointer;
+  background-color: #e2e2e2;
+}
+
+.c-default-size .c-tool-bar-area .c-tool-item:first-child {
+  margin-left: 10px;
+}
+
+.c-default-size .c-tool-bar-area::-webkit-scrollbar {
+  display: none;
+}
+
+.c-default-size .monaco-scrollable-element > .invisible.fade {
+  transition: none;
+}
+
+.c-default-size .c-markdown {
+  display: flex;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.c-default-size .c-markdown .c-show-md-div {
+  padding-left: 10px;
+  height: 100%;
+  overflow: auto;
+  background-color: #fff;
+  /*滚动条的宽度 */
+  /*定义滚动条轨道*/
+  /* 滚动条的滑块 */
+  /*滚动条的宽度 */
+  /*定义滚动条轨道*/
+  /* 滚动条的滑块 */
+}
+
+.c-default-size .c-markdown .c-show-md-div #c-show-area {
+  padding: 5px 40px 5px 40px;
+  background-color: #fff;
+}
+
+.c-default-size .c-markdown .c-show-md-div::-webkit-scrollbar {
+  width: 10px;
+  height: 6px;
+}
+
+.c-default-size .c-markdown .c-show-md-div::-webkit-scrollbar-track {
+  background-color: transparent;
+  -webkit-border-radius: 2em;
+  -moz-border-radius: 2em;
+  border-radius: 2em;
+}
+
+.c-default-size .c-markdown .c-show-md-div::-webkit-scrollbar-thumb {
+  opacity: 1;
+  background-color: transparent;
+  transition: opacity 800ms linear;
+}
+
+.c-default-size .c-markdown .c-show-md-div:hover::-webkit-scrollbar {
+  width: 10px;
+  height: 6px;
+}
+
+.c-default-size .c-markdown .c-show-md-div:hover::-webkit-scrollbar-track {
+  background-color: transparent;
+  -webkit-border-radius: 2em;
+  -moz-border-radius: 2em;
+  border-radius: 2em;
+}
+
+.c-default-size .c-markdown .c-show-md-div:hover::-webkit-scrollbar-thumb {
+  background-color: #989898;
+}
+
+.c-default-size .c-markdown .c-edit-md-div {
+  height: 100%;
+  background-color: #f8f9fa;
+  font-family: SFMono-Regular, Consolas, Liberation Mono, Menlo, monospace;
+  /*
+            #c-edit-area {
+              width: 100%;
+              height: 100%;
+              line-height: 1.5;
+              resize: none;
+              border: none;
+              outline: none;
+              background-color: $edit-bg-color;
+            }*/
+}
+
+.c-default-size .c-markdown .c-edit-md-div .c-edit-border {
+  width: 100%;
+  height: 100%;
+  font-size: 14px;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+.c-default-size .c-border-tlb {
+  border-top: 1px solid #e1e4e8;
+  border-bottom: 1px solid #e1e4e8;
+  border-left: 1px solid #e1e4e8;
+}
+
+.c-default-size .c-border-r {
+  border-right: 1px solid #e1e4e8;
+}
+
+.c-default-size .c-half-width {
+  width: 50%;
+}
+
+.c-default-size .c-full-width {
+  width: 100%;
+}
