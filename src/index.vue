@@ -1,8 +1,12 @@
 <template>
   <div class="c-default-size">
-    <div style="width: 100%; height: 100%" id="c-markdown">
+    <div
+      style="width: 100%; height: 100%"
+      id="c-markdown-container"
+      :class="themeMode ? '' : 'dark'"
+    >
       <div v-if="hasToolBar" class="c-tool-bar-area">
-        <template v-for="(item, index) in toolBarList" :key="index">
+        <template v-for="item in toolBarList" :key="item.name">
           <div
             class="c-tool-item"
             :title="item.name"
@@ -35,6 +39,7 @@
               :codes="text"
               @contentChange="contentChange"
               @editScroll="editScroll"
+              @export="exportFiles"
               ref="editPage"
               :hasInitContent="hasInitContentFlag"
             ></Monaco>
@@ -93,9 +98,14 @@ export default {
       type: Boolean,
       default: true,
     },
+    darkMode: {
+      type: Boolean,
+      default: false,
+    },
   },
   data() {
     return {
+      themeMode: false,
       hiddenRender: false,
       text: "",
       hasInitContentFlag: this.content.length > 0,
@@ -196,6 +206,12 @@ export default {
           class: "iconfengexian",
         },
         {
+          fn: "theme",
+          type: "Instruction",
+          name: "夜间模式",
+          class: "icontiaoshi",
+        },
+        {
           fn: "undo",
           type: "Instruction",
           name: "撤销",
@@ -239,8 +255,12 @@ export default {
   },
   mounted() {
     this.editShow = this.editFlag;
+    this.themeMode = !this.darkMode;
   },
   methods: {
+    switchTheme() {
+      this.themeMode = !this.themeMode;
+    },
     contentChange(newContent) {
       this.text = newContent;
     },
@@ -277,27 +297,36 @@ export default {
     insertFn(content, type) {
       if (type !== "Instruction") {
         this.$refs.editPage.insertVal(content, type);
-      } else if (content === "fullscreen") {
-        this.toolBarList[this.toolBarList.length - 1].class = this.fullscreen
-          ? "iconquanping"
-          : "iconhuanyuanhuabu";
-        this.handleFullScreen();
-      } else if (content === "preview") {
-        this.previewFlag = !this.previewFlag;
-        this.toolBarList[this.toolBarList.length - 2].class = this.previewFlag
-          ? "iconmiwen"
-          : "iconzitiyulan";
-      } else if (content === "editShow") {
-        // eslint-disable-next-line vue/no-mutating-props
-        this.editShow = !this.editShow;
       } else {
-        this.$refs.editPage.resetContent(content);
+        switch (content) {
+          case "fullscreen":
+            this.toolBarList[this.toolBarList.length - 1].class = this
+              .fullscreen
+              ? "iconquanping"
+              : "iconhuanyuanhuabu";
+            this.handleFullScreen();
+            break;
+          case "preview":
+            this.previewFlag = !this.previewFlag;
+            this.toolBarList[this.toolBarList.length - 2].class = this
+              .previewFlag
+              ? "iconmiwen"
+              : "iconzitiyulan";
+            break;
+          case "editShow":
+            this.editShow = !this.editShow;
+            break;
+          case "theme":
+            this.switchTheme();
+            break;
+          default:
+            this.$refs.editPage.resetContent(content);
+        }
       }
     },
 
     handleFullScreen() {
-      let element = document.getElementById("c-markdown"); //放大的元素，如果整个系统放大，直接赋值 document.documentElement
-      console.log(element);
+      let element = document.getElementById("c-markdown-container"); //放大的元素，如果整个系统放大，直接赋值 document.documentElement
       if (this.fullscreen) {
         if (document.exitFullscreen) {
           document.exitFullscreen();
@@ -323,6 +352,51 @@ export default {
       }
 
       this.fullscreen = !this.fullscreen;
+    },
+
+    exportFiles(type) {
+      if (type === "html") {
+        exportRaw(
+          "corgicoding-markdown.html",
+          document.getElementById("c-show-area").innerHTML
+        );
+      } else {
+        exportRaw("corgicoding-markdown.md", this.text);
+      }
+
+      function fakeClick(obj) {
+        let ev = document.createEvent("MouseEvents");
+        ev.initMouseEvent(
+          "click",
+          true,
+          false,
+          window,
+          0,
+          0,
+          0,
+          0,
+          0,
+          false,
+          false,
+          false,
+          false,
+          0,
+          null
+        );
+        obj.dispatchEvent(ev);
+      }
+
+      function exportRaw(name, data) {
+        let urlObject = window.URL || window.webkitURL || window;
+        let export_blob = new Blob([data]);
+        let save_link = document.createElementNS(
+          "http://www.w3.org/1999/xhtml",
+          "a"
+        );
+        save_link.href = urlObject.createObjectURL(export_blob);
+        save_link.download = name;
+        fakeClick(save_link);
+      }
     },
   },
 };

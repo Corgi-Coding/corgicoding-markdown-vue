@@ -86,6 +86,27 @@ export default {
             };
             this.$emit("editScroll", scrollInf);
           });
+
+          this.monacoEditor.addAction({
+            id: "export-markdown", // 菜单项 id
+            label: "export to markdown", // 菜单项名称
+            // keybindings: [this.monaco.KeyMod.CtrlCmd | this.monaco.KeyCode.KEY_J], // 绑定快捷键
+            contextMenuGroupId: "export", // 所属菜单的分组
+            run: () => {
+              this.$emit("export", "markdown");
+            }, // 点击后执行的操作
+          });
+
+          this.monacoEditor.addAction({
+            id: "export-html", // 菜单项 id
+            label: "export to html", // 菜单项名称
+            // keybindings: [this.monaco.KeyMod.CtrlCmd | this.monaco.KeyCode.KEY_J], // 绑定快捷键
+            contextMenuGroupId: "export", // 所属菜单的分组
+            run: () => {
+              this.$emit("export", "html");
+            }, // 点击后执行的操作
+          });
+
           clearInterval(timeout);
         }
       }, 100);
@@ -122,6 +143,26 @@ export default {
           top: this.monacoEditor.getScrollTop(),
         };
         this.$emit("editScroll", scrollInf);
+      });
+
+      this.monacoEditor.addAction({
+        id: "export-markdown", // 菜单项 id
+        label: "export to markdown", // 菜单项名称
+        // keybindings: [this.monaco.KeyMod.CtrlCmd | this.monaco.KeyCode.KEY_J], // 绑定快捷键
+        contextMenuGroupId: "export", // 所属菜单的分组
+        run: () => {
+          this.$emit("export", "markdown");
+        }, // 点击后执行的操作
+      });
+
+      this.monacoEditor.addAction({
+        id: "export-html", // 菜单项 id
+        label: "export to html", // 菜单项名称
+        // keybindings: [this.monaco.KeyMod.CtrlCmd | this.monaco.KeyCode.KEY_J], // 绑定快捷键
+        contextMenuGroupId: "export", // 所属菜单的分组
+        run: () => {
+          this.$emit("export", "html");
+        }, // 点击后执行的操作
       });
     }
   },

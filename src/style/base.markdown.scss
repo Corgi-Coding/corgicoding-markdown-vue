@@ -2,11 +2,27 @@ $border-color: #e1e4e8;
 $edit-font-size: 14px;
 $edit-bg-color: #f8f9fa;
 
+$tool-bar-item-color: #909090;
+$tool-bar-item-hover-color: #333;
+$tool-bar-item-hover-bg-color: #e2e2e2;
+$tool-bar-bg-color: #f9f9f9;
+
+$render-bg-color: #fff;
+$render-scroll-color: #989898;
+
 .c-default-size {
   width: 100%;
   height: 99.7vh;
   min-height: 300px;
-  min-width: 570px;
+  min-width: 610px;
+
+  .dark {
+    filter: invert(0.9) hue-rotate(185deg);
+
+    img {
+      filter: invert(0.9) hue-rotate(185deg);
+    }
+  }
 
   .c-tool-bar-area {
     width: calc(100% - 2px);
@@ -15,26 +31,28 @@ $edit-bg-color: #f8f9fa;
     justify-content: flex-start;
     align-items: center;
 
-    background-color: #f9f9f9;
-    border-right: 1px solid #e1e4e8;
-    border-top: 1px solid #e1e4e8;
-    border-left: 1px solid #e1e4e8;
+    background-color: $tool-bar-bg-color;
+    border-right: 1px solid $border-color;
+    border-top: 1px solid $border-color;
+    border-left: 1px solid $border-color;
 
     .c-tool-item {
       //text-align: center;
+      height: 100%;
       padding: 0 3px;
       color: #909090;
       margin-right: 5px;
       transition: all 500ms;
 
       .icon {
+        line-height: 30px;
         font-size: 18px;
       }
 
       &:hover {
-        color: #333;
+        color: $tool-bar-item-hover-color;
         cursor: pointer;
-        background-color: #e2e2e2;
+        background-color: $tool-bar-item-hover-bg-color;
       }
     }
 
@@ -62,11 +80,11 @@ $edit-bg-color: #f8f9fa;
       padding-left: 10px;
       height: 100%;
       overflow: auto;
-      background-color: #fff;
+      background-color: $render-bg-color;
 
       #c-show-area {
         padding: 5px 40px 5px 40px;
-        background-color: #fff;
+        background-color: $render-bg-color;
       }
 
       /*滚动条的宽度 */
@@ -108,8 +126,17 @@ $edit-bg-color: #f8f9fa;
 
       /* 滚动条的滑块 */
       &:hover::-webkit-scrollbar-thumb {
-        background-color: #989898;
+        background-color: $render-scroll-color;
         //border-radius: 3px;
+      }
+
+      *::-moz-selection {
+        background: #ade1ff;
+        color: inherit;
+      }
+      *::selection {
+        background: #ade1ff;
+        color: inherit;
       }
     }
 

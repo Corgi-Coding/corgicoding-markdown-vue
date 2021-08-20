@@ -1,6 +1,7 @@
 # corgicoding-markdown-vue
 
 Vue components based on monaco and markdown-it.
+Compatible with vue2 and vue3.
 
 ## how to use
 
@@ -70,7 +71,7 @@ module.exports = {
 };
 ```
 
-## Vue
+## Main Component
 
 this component has the following props:
 
@@ -82,6 +83,9 @@ this component has the following props:
   - control editPage show
 - hasToolBar
   - control toolBar show
+- darkMode
+  - switch to dark theme
+
 
 ``` js
     options: {
@@ -100,6 +104,105 @@ this component has the following props:
       type: Boolean,
       default: true,
     },
+    darkMode: {
+      type: Boolean,
+      default: false
+    }
 ```
 
+### EditPage
 
+on demand editpage props.
+
+``` js
+  props: {
+    hasInitContent: {
+      type: Boolean,
+      default: false,
+    },
+    // editor show content
+    codes: {
+      type: String,
+      default: function () {
+        return "";
+      },
+    },
+    // main config
+    editorOptions: {
+      type: Object,
+      default: () => {
+        return {
+          selectOnLineNumbers: true,
+          roundedSelection: false,
+          readOnly: false, // 只读
+          cursorStyle: "line", // 光标样式
+          glyphMargin: true, // 字形边缘
+          useTabStops: false,
+          fontSize: 16, // 字体大小
+          autoIndent: false, // 自动布局
+        };
+      },
+    },
+    // editor config
+    codeOption: {
+      type: Object,
+      default: () => {
+        return {
+          lang: "markdown",
+          theme: "vs",
+          minimap: false,
+        };
+      },
+    },
+  },
+```
+
+### RenderPage
+
+on demand renderpage props.
+
+``` js
+  props: {
+    options: {
+      type: Object,
+      /* default markdown-it options */
+      default: () => {
+        return {
+          html: true,
+          linkify: true,
+          break: true,
+          highlight: function (str, lang) {
+            if (lang && highlight.getLanguage(lang)) {
+              try {
+                return (
+                  '<pre class="hljs"><code>' +
+                  highlight.highlight(lang, str, true).value +
+                  "</code></pre>"
+                );
+                // eslint-disable-next-line no-empty
+              } catch (__) {}
+            }
+
+            return (
+              '<pre class="hljs"><code>' +
+              highlight.highlight("json", str, true).value +
+              "</code></pre>"
+            ); // Use additional default escaping
+          },
+          // typographer:  true,
+        };
+      },
+    },
+    /* text to be rendered */
+    content: {
+      type: String,
+      default: "> *corgicoding: Edit here...*",
+    },
+  },
+```
+
+## 1.0.5 UPDATE
+
+1. modify toolbar css style.
+2. support dark theme mode.
+3. support export files.

@@ -1,6 +1,6 @@
 {
   "name": "@corgicoding/markdown-vue",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "Vue components based on monaco and markdown-it",
   "main": "index.js",
   "scripts": {
